@@ -40,12 +40,12 @@ sparkplot(dat,l_col_trans = 0.3,
 
 
 sparkplot <- function(dat,l_col_trans, x_lab, y_lab, title){
-  num_lines<- dim(dat)[2]-1 # Number of lines in the figure
+  num_lines<- ncol(dat) # Number of lines in the figure
   x_lim<- nrow(dat) # Number of dots for each line
   # plot the first column of data without showing
   plot(1:x_lim, dat[,1], type = "n",xlab =x_lab, ylab = y_lab,main = title)
   # plot the rest columns(expect the last column) of data in transparent lines
-  for (i in 1:num_lines){
+  for (i in 1:(num_lines-1){
     
     lines(1:x_lim, dat[, i],col = rgb(runif(1),runif(1),runif(1),alpha = l_col_trans)
           ,ylim =c(0,20), lwd = 2)  }
