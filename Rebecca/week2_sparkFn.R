@@ -45,9 +45,9 @@ sparkplot <- function(dat,l_col_trans, x_lab, y_lab, title){
   # plot the first column of data without showing
   plot(1:x_lim, dat[,1], type = "n",xlab =x_lab, ylab = y_lab,main = title)
   # plot the rest columns(expect the last column) of data in transparent lines
-  for (i in 1:num_lines-1){
+  for (i in 1:num_lines){
     
-    lines(1:x_lim, dat[, i+1],col = rgb(runif(1),runif(1),runif(1),alpha = l_col_trans)
+    lines(1:x_lim, dat[, i],col = rgb(runif(1),runif(1),runif(1),alpha = l_col_trans)
           ,ylim =c(0,20), lwd = 2)  }
   # plot the last column in the color of turquois
   lines(1:x_lim, dat[, num_lines],col = rgb(64/255,224/255,208/255,alpha = l_col_trans)
