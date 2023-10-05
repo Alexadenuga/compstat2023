@@ -9,7 +9,8 @@
 #' @return
 #' @export
 #'
-#' @examples
+#' Details: This function creates a sparkplot from a data.frame
+#' @examples sparkplot(mtcars, 0.4, "x", "y", "sparkplot")
 
 sparkplot <- function(dat, trans, xaxis, yaxis, title){
 
