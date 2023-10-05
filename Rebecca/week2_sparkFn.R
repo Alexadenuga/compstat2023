@@ -22,13 +22,20 @@
 #'
 #' @examples
 
-#'num_data =20
-#'dat<-data.frame(col1=runif(num_data),col2=runif(num_data),
-#'                col3=runif(num_data),col4=runif(num_data),
-#'                col5=runif(num_data),col6=runif(num_data))
-#'sparkplot(dat,l_col_trans = 0.3, 
-#'          x_lab="xaxis", y_lab="dataframe column values",
-#'          title ="Transparent Lines / Spark Plot")
+num_data =20
+dat<-data.frame(col1=runif(num_data),col2=runif(num_data),
+                col3=runif(num_data),col4=runif(num_data),
+                col5=runif(num_data),col6=runif(num_data))
+
+
+
+sparkplot(dat,l_col_trans = 0.3,
+          x_lab="xaxis", y_lab="dataframe column values",
+          title ="Transparent Lines / Spark Plot")
+
+
+
+
 
 
 
@@ -37,10 +44,16 @@ sparkplot <- function(dat,l_col_trans, x_lab, y_lab, title){
   x_lim<- nrow(dat) # Number of dots for each line
   # plot the first column of data without showing
   plot(1:x_lim, dat[,1], type = "n",xlab =x_lab, ylab = y_lab,main = title)
-  # plot the rest columns of data in transparent lines
-  for (i in 1:num_lines){
+  # plot the rest columns(expect the last column) of data in transparent lines
+  for (i in 1:num_lines-1){
     
     lines(1:x_lim, dat[, i+1],col = rgb(runif(1),runif(1),runif(1),alpha = l_col_trans)
-,ylim =c(0,20), lwd = 2)  }
+          ,ylim =c(0,20), lwd = 2)  }
+  # plot the last column in the color of turquois
+  lines(1:x_lim, dat[, num_lines],col = rgb(64/255,224/255,208/255,alpha = l_col_trans)
+        ,ylim =c(0,20), lwd = 2)
+  
+  
 }
+
 
