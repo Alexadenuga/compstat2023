@@ -21,11 +21,6 @@ dat <- data.frame(x = 1:100,
 the_spark_plot(dat=dat, trans = 0.3, col = "pink", label_x = "Data point", 
                label_y = "Value", the_title = "Spark Plot")
 
-# Call the 'the_spark_plot' function again with different parameters
-the_spark_plot(dat=dat, trans = 0.3, col = "purple",
-               label_x = "Data point", label_y = "Value"
-               , the_title = "Sparkline Plot")
-
 # Define the 'the_spark_plot' function
 the_spark_plot <- function(dat, trans, col, label_x, label_y, the_title) {
   # Check if 'dat' is a dataframe
