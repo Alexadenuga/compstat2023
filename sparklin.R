@@ -1,0 +1,40 @@
+#' Title
+#'
+#' @param dat 
+#' @param trans 
+#' @param xaxis 
+#' @param yaxis 
+#' @param title 
+#'
+#' @return
+#' @export
+#'
+#' Details: This function creates a sparkplot from a data.frame
+#' @examples sparkplot(mtcars, 0.4, "x", "y", "sparkplot")
+
+sparkplot <- function(dat, trans, xaxis, yaxis, title){
+  
+  # double check the function inputs
+  
+  if(class(dat) != data.frame){
+    stop("This object is NOT a data.frame")
+  }
+  
+  if(class(trans) != numeric){
+    stop("Transparency level must be a number between 0 and 1")
+  }
+  
+  if(class(c(xaxis, yaxis, title)) != character){
+    stop("Rename the axis and title")
+  }
+  
+  
+  # plot the first column 
+  plot(x = 1:nrow(dat), y = dat[,1], type = "l", xlab = xaxis, ylab = yaxis, main = title)
+  
+  for(x in 2:ncol(dat)){
+    
+    # plot columns as transparent lines
+    lines(x = 1:nrow(dat), y = dat[,x], col = rgb(0,0,0,alpha = trans))
+  }
+}
