@@ -1,59 +1,56 @@
-
-#
-#  step 1: get lines of code that make a plot like I described
-#  step 2: turn that into a basic function
-#  my_spark <- function(dat) {
-#    ... stuff
-#  }
-#  step 3: make the function better!
-#  step 4: test the function with different arguments, make sure it works
-# function(dat,ltr, bcol, x_lab, y_lab,title)
-
-#' Title
+#' Title Spark_Plot
 #'
-#' @param dat 
-#' @param l_col_trans 
-#' @param x_lab 
-#' @param y_lab 
-#' @param title 
+#' @param dat the data.frame user will pass into the function
+#' @param level.trans level of transparency for the color of lines 
+#' @param xlab ...
+#' @param ylab ...
+#' @param main ...
 #'
 #' @return 
 #' @export
 #'
-#' @examples
+#' Details: This function plot transparent lines from the a data.frame, the 
+#'          level of transparency was an parameter of the function
+#'
+#' @examples num_data =20  # number of data for each line
+#'           dat<-data.frame(col1=runif(num_data),col2=runif(num_data),
+#'                           col3=runif(num_data),col4=runif(num_data),
+#'                           col5=runif(num_data),col6=runif(num_data))
+#'           sparkplot(dat,level.trans = 0.3,
+#'                     xlab="xaxis", ylab="dataframe column values",
+#'                     main ="Transparent Lines / Spark Plot")
 
-num_data =20
-dat<-data.frame(col1=runif(num_data),col2=runif(num_data),
-                col3=runif(num_data),col4=runif(num_data),
-                col5=runif(num_data),col6=runif(num_data))
+sparkplot <- function(dat,level.trans,xlab,ylab,main,...){
+  
+  # "sanity check": check if dat is a data.frame
+  if(!is.data.frame(dat)){
+    stop("Sorry, dat is not a data.frame, please call sparkplot again and make sure that 
+         dat is a data.frame")
+  }
+   if((!is.numeric(level.trans))||(level.trans<0)||(level.trans>1)){
+    stop("The level.trans parameter should be a value between 0 and 1! Please call sparkplot again.")
+  }
 
-
-
-sparkplot(dat,l_col_trans = 0.3,
-          x_lab="xaxis", y_lab="dataframe column values",
-          title ="Transparent Lines / Spark Plot")
-
-
-
-
-
-
-
-sparkplot <- function(dat,l_col_trans, x_lab, y_lab, title){
-  num_lines<- dim(dat)[2]-1 # Number of lines in the figure
-  x_lim<- nrow(dat) # Number of dots for each line
+  
+  
+  # Number of lines in the figure
+  num_lines<- ncol(dat)
+  # Number of dots for each line
+  x_lim<- nrow(dat) 
+  
   # plot the first column of data without showing
-  plot(1:x_lim, dat[,1], type = "n",xlab =x_lab, ylab = y_lab,main = title)
+  plot(1:x_lim, dat[,1],xlim = c(1, nrow(dat)), ylim = c(0, max(dat)), 
+       type = "n",xlab = xlab,ylab=ylab, main = main)
+  
   # plot the rest columns(expect the last column) of data in transparent lines
-  for (i in 1:num_lines-1){
-    
-    lines(1:x_lim, dat[, i+1],col = rgb(runif(1),runif(1),runif(1),alpha = l_col_trans)
+  # colors of those lines are random
+  for (i in 2:(num_lines-1)){
+    lines(1:x_lim, dat[, i],col = rgb(runif(1),runif(1),runif(1),alpha = level.trans)
           ,ylim =c(0,20), lwd = 2)  }
-  # plot the last column in the color of turquois
-  lines(1:x_lim, dat[, num_lines],col = rgb(64/255,224/255,208/255,alpha = l_col_trans)
+  
+  # plot the last column with a fixed color of "turquoise" (64/255,224/255,208/255)
+  lines(1:x_lim, dat[, num_lines],col = rgb(0,0,0,alpha = level.trans)
         ,ylim =c(0,20), lwd = 2)
-  
-  
 }
 
 
