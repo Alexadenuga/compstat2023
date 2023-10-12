@@ -31,13 +31,11 @@ sparkplot <- function(dat,level.trans,xlab,ylab,main,...){
     stop("The level.trans parameter should be a value between 0 and 1! Please call sparkplot again.")
   }
 
-  
-  
   # Number of lines in the figure
   num_lines<- ncol(dat)
   # Number of dots for each line
   x_lim<- nrow(dat) 
-  
+ 
   # plot the first column of data without showing
   plot(1:x_lim, dat[,1],xlim = c(1, nrow(dat)), ylim = c(0, max(dat)), 
        type = "n",xlab = xlab,ylab=ylab, main = main)
@@ -46,7 +44,6 @@ sparkplot <- function(dat,level.trans,xlab,ylab,main,...){
   # colors of those lines are random
   for (i in 2:(num_lines-1)){
     lines(1:x_lim, dat[, i],col = rgb(runif(1),runif(1),runif(1),alpha = level.trans)
-          ,ylim =c(0,20), lwd = 2)  }
   
   # plot the last column with a fixed color of "turquoise" (64/255,224/255,208/255)
   lines(1:x_lim, dat[, num_lines],col = rgb(0,0,0,alpha = level.trans)
